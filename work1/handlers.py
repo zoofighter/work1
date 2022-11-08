@@ -26,8 +26,6 @@ class RouteHandler(APIHandler):
         self.finish(json.dumps(data))
 
 
-
-
 def setup_handlers(web_app, url_path):
     host_pattern = ".*$"
 

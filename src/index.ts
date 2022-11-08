@@ -7,7 +7,8 @@ import { ICommandPalette, IFrame } from '@jupyterlab/apputils';
 import { ILauncher } from '@jupyterlab/launcher';
 import { PageConfig } from '@jupyterlab/coreutils';
 import { requestAPI } from './handler';
-import { Panel, Widget } from '@lumino/widgets';
+import { Widget, BoxPanel  } from '@lumino/widgets';
+//import { MainAreaWidget } from '@jupyterlab/apputils';
 import {
   BasicModel,
   BasicView
@@ -37,7 +38,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     console.log('JupyterLab extension work200 is activated!');
 
     try {
-      const data = await requestAPI<any>('hello__');
+      const data = await requestAPI<any>('hello');
       console.log(data);
     } catch (reason) {
       console.error(`Error on GET /jlab-ext-example/hello.\n${reason}`);
@@ -95,16 +96,20 @@ const plugin: JupyterFrontEndPlugin<void> = {
       app.restored.then(() => {
 
         // Demo Model-View
-        const panel = new Panel();
+        const panel = new BoxPanel();
+        //const boxpanel = new BoxPanel();
         panel.id = 'jupyter-ui-toolkit-demo-panel';
         const title1 = new Widget();
         title1.node.textContent = 'UsingDB';
         panel.addWidget(title1);
+
+        //panel.addWidget(title1);
+
         const view1 = new BasicView();
         view1.model = new BasicModel();
         panel.addWidget(new Widget({ node: view1 }));
-
         panel.title.label = 'Demo';
+
         app.shell.add(panel, 'right');
       });
     }
@@ -133,3 +138,17 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
 export default plugin;
 
+
+class IFrameWidget extends IFrame {
+  constructor() {
+    super();
+    const baseUrl = PageConfig.getBaseUrl();
+    console.log('baseUrl', baseUrl)
+      this.url = baseUrl + 'work1/hello';
+    //this.url = baseUrl + '/';
+    this.id = 'doc-example';
+    this.title.label = 'web';
+    this.title.closable = true;
+    this.node.style.overflowY = 'auto';
+  }
+}

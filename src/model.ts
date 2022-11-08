@@ -65,8 +65,6 @@ export class BasicView extends FASTElement {
   }
 
 
-
-
   private _onStateChanged(): void {
     this.$fastController.notify('model');
   }

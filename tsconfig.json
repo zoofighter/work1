@@ -19,7 +19,8 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "es2017",
-    "types": []
+    "types": [],
+    "typeRoots": ["./node_modules/@types", "types"]
   },
   "include": ["src/*"]
 }
