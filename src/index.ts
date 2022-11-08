@@ -36,31 +36,32 @@ const plugin: JupyterFrontEndPlugin<void> = {
     ) => {
     console.log('JupyterLab extension work200 is activated!');
 
-    // try {
-    //   const data = await requestAPI<any>('hello');
-    //   console.log(data);
-    // } catch (reason) {
-    //   console.error(`Error on GET /jlab-ext-example/hello.\n${reason}`);
-    // }
+    try {
+      const data = await requestAPI<any>('hello__');
+      console.log(data);
+    } catch (reason) {
+      console.error(`Error on GET /jlab-ext-example/hello.\n${reason}`);
+    }
+
     //requestAPI<any>('get_example')
-    requestAPI<any>('hello')
-      .then(data => {
-        console.log(data);
-      })
-      .catch(reason => {
-        console.error( `The work1 server extension appears to be missing.\n${reason}`);
-      });
+    // requestAPI<any>('hello')
+    //   .then(data => {
+    //     console.log('data',data);
+    //   })
+    //   .catch(reason => {
+    //     console.error( `The work1 server extension appears to be missing.\n${reason}`);
+    //   });
 
 
 
    // POST request
-    const dataToSend = { name: 'George' };
+    const dataToSend = { name: 'man' };
     try {
       const reply = await requestAPI<any>('hello', {
         body: JSON.stringify(dataToSend),
         method: 'POST',
       });
-      console.log(reply);
+      console.log('reply',reply);
     } catch (reason) {
       console.error(
         `Error on POST /work1/hello ${dataToSend}.\n${reason}`
@@ -79,9 +80,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
         shell.add(widget, 'main');
       },
     });
+    palette.addItem({ command, category: category });
+
+
+
     const widget = new IFrameWidget();
     app.shell.add(widget, 'right');
-    palette.addItem({ command, category: category });
+
 
 
 
@@ -128,16 +133,3 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
 export default plugin;
 
-class IFrameWidget extends IFrame {
-  constructor() {
-    super();
-    const baseUrl = PageConfig.getBaseUrl();
-    console.log('baseUrl', baseUrl)
-      this.url = baseUrl + 'work1/public/index.html';
-    //this.url = baseUrl + '/';
-    this.id = 'doc-example';
-    this.title.label = 'web';
-    this.title.closable = true;
-    this.node.style.overflowY = 'auto';
-  }
-}

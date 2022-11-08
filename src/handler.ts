@@ -20,15 +20,24 @@ export async function requestAPI<T>(
     'work1', // API Namespace
     endPoint
   );
-
+  console.log('requestUrl',requestUrl)
   let response: Response;
-  //try {
   response = await ServerConnection.makeRequest(requestUrl, init, settings);
+
+
+
+  // try {
+  // response = await ServerConnection.makeRequest(requestUrl, init, settings);
   // } catch (error) {
-    //   throw new ServerConnection.NetworkError(error);
+  //     throw new ServerConnection.NetworkError(error);
   // }
 
+
+
+
   let data: any = await response.text();
+
+
 
   if (data.length > 0) {
     try {
