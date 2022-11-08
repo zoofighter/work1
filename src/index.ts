@@ -7,7 +7,7 @@ import { ICommandPalette, IFrame } from '@jupyterlab/apputils';
 import { ILauncher } from '@jupyterlab/launcher';
 import { PageConfig } from '@jupyterlab/coreutils';
 import { requestAPI } from './handler';
-import { Widget, BoxPanel  } from '@lumino/widgets';
+import { Widget, Panel  } from '@lumino/widgets';
 //import { MainAreaWidget } from '@jupyterlab/apputils';
 import {
   BasicModel,
@@ -96,44 +96,26 @@ const plugin: JupyterFrontEndPlugin<void> = {
       app.restored.then(() => {
 
         // Demo Model-View
-        const panel = new BoxPanel();
+        const panelMainArea = new Panel();
         //const boxpanel = new BoxPanel();
-        panel.id = 'jupyter-ui-toolkit-demo-panel';
-        const title1 = new Widget();
-        title1.node.textContent = 'UsingDB';
-        panel.addWidget(title1);
+        panelMainArea.id = 'jupyter-ui-toolkit-demo-panel';
+        const unit_title1 = new Widget();
+        unit_title1.node.textContent = 'UsingDB';
+        panelMainArea.addWidget(unit_title1);
 
         //panel.addWidget(title1);
 
         const view1 = new BasicView();
         view1.model = new BasicModel();
-        panel.addWidget(new Widget({ node: view1 }));
-        panel.title.label = 'Demo';
+        panelMainArea.addWidget(new Widget({ node: view1 }));
+        panelMainArea.title.label = 'Demo';
 
-        app.shell.add(panel, 'right');
+        app.shell.add(panelMainArea, 'right');
+        app.shell.add(panelMainArea, 'main');
       });
     }
 };
 
-// function createNode(): HTMLElement {
-//   const node = document.createElement('div');
-//   node.insertAdjacentHTML(
-//     'afterbegin',
-//     `
-// <div class="jp-Grid">
-//     <div class="jp-FlexColumn" style="grid-column: 1;">
-//       <div class="jp-FlexRow">
-//         <jp-button appearance="accent">Button</jp-button>
-//         <jp-button appearance="neutral">Button</jp-button>
-//         <jp-button appearance="stealth" aria-label="Confirm"><span class="fa fa-cog"></span></jp-button>
-//       </div>
-//     </div>
-// </div>
-// `
-//   );
-
-//   return node;
-// }
 
 
 export default plugin;
